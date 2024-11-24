@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Notifications\NewUserNotification;
+use App\Services\StripeService;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
 
 class WhatsAppController extends Controller
 {
-    public function __construct(protected  UserServices $userServices)
-    {}
+    public function __construct(
+        protected  UserServices $userServices,
+        protected StripeService $stripeService,
+    ){}
 
     public function newMessage(Request $request)
     {
@@ -23,6 +26,8 @@ class WhatsAppController extends Controller
             $user = $this->userServices->store($request->all());
         }
 
-        $user->notify(new NewUserNotification($user->name, 'cs_test_a1alksakldaksldlasldlasldalsdlaalsdaldldks'));
+        if (!$user->subscribed()) {
+            $this->stripeService->payment($user);
+        }
     }
 }
