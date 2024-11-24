@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('phone', 14)->unique();
-            $table->dateTime('last_whatsaoo_at')->nullable();
+            $table->dateTime('last_whatsapp_at')->nullable();
             $table->json('memory')->nullable();
             $table->rememberToken();
             $table->timestamps();

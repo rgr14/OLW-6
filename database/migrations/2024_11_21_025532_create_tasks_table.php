@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('meta');
             $table->string('additional_info')->nullable();
             $table->dateTime('due_at')->index();
-            $table->dateTime('completed_at');
-            $table->dateTime('reminder_at')->index();
+            $table->dateTime('completed_at')->nullable();
+            $table->dateTime('reminder_at')->index()->nullable();
             $table->timestamps();
         });
     }
