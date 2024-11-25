@@ -13,6 +13,15 @@ class MenuNotification extends Notification
 {
     use Queueable;
 
+    private string $message = "Aqui estão os comandos que você pode usar para aproveitar ao máximo o assistente:
+
+*!menu* - Exibe essa lista com todas as opções de comandos.
+*!agenda* - Mostra as próximas tarefas e agendamentos que você tem programados.
+*!insights* - Gera insights sobre suas tarefas dos últimos dias, ajudando você a identificar padrões e oportunidades para melhorar sua produtividade.
+*!update* - Atualiza uma determinada tarefa
+
+É só escolher o comando que precisa e eu cuido do resto ou me mandar qualquer coisa que eu te ajudo! 😊";
+
     /**
      * Create a new notification instance.
      */
@@ -33,11 +42,7 @@ class MenuNotification extends Notification
 
     public function toWhatsApp(): WhatsAppMessage
     {
-        return (new WhatsAppMessage())
-            ->contentSid('HXdb6708b227997049d16d248c321dc034')
-            ->variables([
-                '1' => $this->name,
-                '2' => $this->stripeLink,
-            ]);
+        return (new WhatsAppMessage)
+            ->content($this->message);
     }
 }
